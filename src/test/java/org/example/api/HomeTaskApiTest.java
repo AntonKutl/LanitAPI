@@ -50,7 +50,7 @@ public class HomeTaskApiTest {
         Assert.assertEquals(order.getId(), actual.getId());
     }
 
-    @Test
+    @Test(priority = 3)
     public void returnsStatus() {
         Map map =
                 given()
@@ -66,7 +66,7 @@ public class HomeTaskApiTest {
 
     }
 
-    @Test
+    @Test(priority = 1)
     public void deleteOrder() {
         given()
                 .pathParams("orderId", order.getId())
@@ -76,14 +76,24 @@ public class HomeTaskApiTest {
                 .statusCode(200);
     }
 
-    @Test
-    public void findOrder() {
+    @Test(priority = 3)
+    public void findPet() {
         given()
                 .pathParams("petId", order.getPetId())
                 .when()
                 .get("/store/order/{petId}")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test(priority = 2)
+    public void findDeleteOrder() {
+        given()
+                .pathParams("orderId", order.getId())
+                .when()
+                .get("/store/order/{orderId}")
+                .then()
+                .statusCode(404);
     }
 
 }
